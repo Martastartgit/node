@@ -40,47 +40,25 @@ fs.writeFile(`${userFemalePath}/Karina.json`, JSON.stringify(karina), err => {
     if (err) return err;
 })
 
-fs.readdir(userFemalePath, ((err, files) => {
-    if (err) return err;
-    files.forEach(file => {
-       fs.readFile(`${userFemalePath}/${file}`, (err1, data) => {
-           if (err){
-               console.log(err);
-               return err;
-           }
-           let user = JSON.parse(data);
-           if (user.gender === 'male') {
-              fs.rename(`${userFemalePath}/${file}`,`${userMalePath}/${file}`, e => {
-                  if (e) {
-                      console.log(e);
-                      return e;
-                  }
-              });
-           }
-       });
-    });
-}))
-
-fs.readdir(userMalePath, ((err, files) => {
-    if (err) return err;
-    files.forEach(file => {
-        fs.readFile(`${userMalePath}/${file}`, (err1, data) => {
-            if (err){
-                console.log(err);
-                return err;
-            }
-            let user = JSON.parse(data);
-            if (user.gender === 'female') {
-                fs.rename(`${userMalePath}/${file}`,`${userFemalePath}/${file}`, e => {
-                    if (e) {
-                        console.log(e);
-                        return e;
-                    }
-                });
-            }
+const moveFile = (filePath) => {
+    fs.readdir(filePath, ((err, files) => {
+        if (err) return err;
+        files.forEach(file => {
+            fs.readFile(filePath + `/${file}`, (err1, data) => {
+                if (err){
+                    console.log(err);
+                    return err;
+                }
+                let user = JSON.parse(data);
+                 (user.gender === 'female')
+                   ? fs.rename(filePath + `/${file}`,`${userFemalePath}/${file}`, e => console.log(e))
+                   : fs.rename(filePath + `/${file}`,`${userMalePath}/${file}`, e => console.log(e));
+            });
         });
-    });
-}))
+    }))
+}
+moveFile(userFemalePath);
+moveFile(userMalePath);
 
 // *****************************TASK 2****************************************************
 
