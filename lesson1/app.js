@@ -84,3 +84,47 @@ fs.readdir(userMalePath, ((err, files) => {
 
 // *****************************TASK 2****************************************************
 
+fs.mkdir(`${__dirname}/task2/dir1/dir2/dir3/dir4`, {recursive: true}, err => {
+    if (err) return err;
+})
+
+const pathFile = path.join(__dirname, 'task2', 'dir1', 'dir2');
+const newPath = path.join(__dirname, 'task2', 'file_folder');
+const data = 'Hello Node!';
+
+fs.writeFile(`${pathFile}/file1.txt`, data, err => {
+    if (err) return err;
+})
+
+fs.writeFile(`${pathFile}/dir3/file2.txt`, data, err => {
+    if (err) return err;
+})
+
+fs.writeFile(`${pathFile}/dir3/dir4/file3.txt`, data, err => {
+    if (err) return err;
+})
+
+fs.writeFile(`${pathFile}/dir3/dir4/file4.txt`, data, err => {
+    if (err) return err;
+})
+
+const moveFiles = (filePath) => {
+    fs.readdir(filePath, ((err, files) => {
+        if (err) return err;
+        files.forEach(file => {
+            fs.stat(filePath + `/${file}`, ((err1, stats) => {
+                if (err) return err;
+                if (stats.isDirectory()) {
+                    let folder = filePath + `/${file}`;
+                    moveFiles(folder)
+                } else {
+                    fs.rename(filePath + `/${file}`, newPath + `/${file}`, e => {
+                        if (e) return e;
+                    })
+                }
+            }))
+        })
+    }))
+}
+const folderPath = path.join(__dirname, 'task2', 'dir1')
+moveFiles(folderPath)
