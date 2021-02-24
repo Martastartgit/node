@@ -4,9 +4,9 @@ const statusCodes = require('../constant/status.codes');
 module.exports = {
     isUserValid: (req, res, next) => {
         try {
-            const { name, password, preferL = 'en' } = req.body;
+            const { name, password, gender, preferL = 'en' } = req.body;
 
-            if (!name || !password) {
+            if (!name || !password || !gender) {
                 throw new Error(errorMessages.EMPTY_FIELD[preferL]);
             }
 

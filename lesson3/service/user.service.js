@@ -15,7 +15,7 @@ const readFile = async() => {
 
 module.exports = {
     getAllUsers :  async() => {
-      return await readFile();
+      return readFile();
     },
 
     createUser: async (userObject) => {
