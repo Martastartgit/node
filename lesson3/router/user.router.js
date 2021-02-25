@@ -10,5 +10,4 @@ router.route('/:userId')
     .get(userMiddleware.isIdValid, userController.getUserById)
     .delete(userMiddleware.isIdValid, userController.deleteUser);
 
-
 module.exports = router;

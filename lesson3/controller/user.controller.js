@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    createUser: async(req, res) => {
+    createUser: async (req, res) => {
         try {
             await userService.createUser(req.body);
 
@@ -34,9 +34,9 @@ module.exports = {
         }
     },
 
-    getUserById: async(req, res) => {
+    getUserById: async (req, res) => {
         try {
-            const users = await  userService.getUserById(req.params.userId);
+            const users = await userService.getUserById(req.params.userId);
 
             res.json(users);
         } catch (e) {
@@ -44,7 +44,7 @@ module.exports = {
         }
     },
 
-    deleteUser: async(req, res) => {
+    deleteUser: async (req, res) => {
         try {
             await userService.deleteUser(req.params.userId);
 
@@ -52,5 +52,5 @@ module.exports = {
         } catch (e) {
             res.status(statusCode.NOT_FOUND).json(e.message);
         }
-    }
-}
+    },
+};

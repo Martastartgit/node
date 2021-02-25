@@ -4,7 +4,9 @@ const statusCodes = require('../constant/status.codes');
 module.exports = {
     isUserValid: (req, res, next) => {
         try {
-            const { name, password, gender, preferL = 'en' } = req.body;
+            const {
+                name, password, gender, preferL = 'en',
+            } = req.body;
 
             if (!name || !password || !gender) {
                 throw new Error(errorMessages.EMPTY_FIELD[preferL]);
@@ -32,5 +34,5 @@ module.exports = {
         } catch (e) {
             res.status(statusCodes.BAD_REQUEST).json(e.message);
         }
-    }
-}
+    },
+};
