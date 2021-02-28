@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-require('./Resident');
 
 const ApartmentSchema = new Schema({
     rooms: { type: Number, required: true },
