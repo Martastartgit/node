@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 
 const apiRouter = require('./router/api.router');
 
+const PORT = 5000;
+const mongoDbUrl = 'mongodb://localhost:27017/myDataBase';
+
 const app = express();
 
 _connectDB();
@@ -12,10 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', apiRouter);
 
-app.listen(5000, () => console.log('Api listen 5000'));
+app.listen(PORT, () => console.log('Api listen 5000'));
 
 function _connectDB() {
-    mongoose.connect('mongodb://localhost:27017/myDataBase', {
+    mongoose.connect(mongoDbUrl, {
         useNewUrlParser: true,
         useFindAndModify: false,
         useUnifiedTopology: true

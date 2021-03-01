@@ -1,16 +1,23 @@
 const errorMessage = require('../error/error.message');
 const statusCode = require('../constant/status.codes');
+const residentService = require('../service/resident.service');
 
 module.exports = {
-    isIdValid: (req, res, next) => {
+    isIdValid: async (req, res, next) => {
         try {
-           const id = Object.values(req.params).toString();
+            const { residentId } = req.params;
 
-            if (!id) {
+            const singleResident = await residentService.getResidentById(residentId);
+
+            if (!residentId) {
                 throw new Error(errorMessage.GENERAL.NOT_FOUND_ID);
             }
 
-            if (id.length < 24) {
+            if (!singleResident) {
+                throw new Error(errorMessage.GENERAL.NOT_FOUND);
+            }
+
+            if (residentId.length < 24) {
                 throw new Error(errorMessage.GENERAL.NOT_VALID_ID);
             }
 
